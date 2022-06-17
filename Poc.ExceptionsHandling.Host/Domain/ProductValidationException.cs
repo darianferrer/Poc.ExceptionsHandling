@@ -5,5 +5,7 @@
         public ProductValidationException(string message) : base(message)
         {
         }
+
+
     }
 }

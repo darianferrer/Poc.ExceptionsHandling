@@ -10,12 +10,19 @@ namespace Poc.ExceptionsHandling.Host.Repositories
 
         public async Task<Product> CreateProductAsync(Product product)
         {
-            throw new NotImplementedException();
+            var maxId = 0;
+            if (_products.Any())
+                maxId = _products.Max(x => x.Key);
+            
+            
+            product.Id = maxId + 1;
+            _products.TryAdd((int)product.Id , product);
+            return product;
         }
 
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            throw new NotImplementedException();
+            return _products.Values;
         }
     }
 }

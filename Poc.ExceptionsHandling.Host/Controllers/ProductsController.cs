@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Poc.ExceptionsHandling.Host.Models;
+using Poc.ExceptionsHandling.Host.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-// Don't throw exceptions in C#. Do this instead
-// https://www.youtube.com/watch?v=a1ye9eGTB98&ab_channel=NickChapsas
+
+// Examples
+// https://github.com/trainline-private/k6-examples
 
 namespace Poc.ExceptionsHandling.Host.Controllers
 {
@@ -10,24 +13,33 @@ namespace Poc.ExceptionsHandling.Host.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly IProductService _productService;
+
+        public ProductsController(IProductService productService)
+        {
+            _productService = productService;
+        }
         // GET: api/<Products>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<ProductModel>>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok((await _productService.GetProductsAsync()).Select(x => new ProductModel(x)));
         }
 
         // GET api/<Products>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string Get(int productId)
         {
-            return "value";
+            throw new NotImplementedException();
         }
 
         // POST api/<Products>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<ProductModel>> Post([FromBody] ProductModel product)
         {
+            return Ok(new ProductModel( 
+                await _productService.CreateProductAsync(product.ToDomain()
+                )));
         }
 
      
