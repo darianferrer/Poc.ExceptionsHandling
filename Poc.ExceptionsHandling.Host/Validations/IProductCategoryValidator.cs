@@ -3,8 +3,8 @@ using Poc.ExceptionsHandling.Host.Domain;
 
 namespace Poc.ExceptionsHandling.Host.Validations
 {
-    public interface IProductValidator
+    public interface IProductCategoryValidator
     {
-        Task<Result<string>> ValidateAsync(Product product);
+        Task<bool> Validate(Product product);
     }
 }

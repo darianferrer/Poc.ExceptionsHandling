@@ -7,10 +7,10 @@ namespace Poc.ExceptionsHandling.Host.Services
 {
     public class ProductService:IProductService
     {
-        private readonly IProductValidator  _productValidator;
+        private readonly IProductCategoryValidator  _productValidator;
         private readonly IProductRepository _repository;
 
-        public ProductService(IProductValidator productValidator, IProductRepository repository)
+        public ProductService(IProductCategoryValidator productValidator, IProductRepository repository)
         {
             _productValidator = productValidator;
             _repository = repository;
@@ -18,10 +18,11 @@ namespace Poc.ExceptionsHandling.Host.Services
 
         public async Task<Result<Product> > CreateProductAsync(Product product)
         {
-            var productValidationResult =  await _productValidator.ValidateAsync(product);
-            if (productValidationResult.IsFaulted)
+
+            var isValid = await _productValidator.Validate(product);
+            if (!isValid)
             {
-            
+                return new Result<Product>(new ProductValidationException($"Unknown Category:{product.Category}"));
             }
 
             return await _repository.CreateProductAsync(product);

@@ -37,9 +37,16 @@ namespace Poc.ExceptionsHandling.Host.Controllers
         [HttpPost]
         public async Task<ActionResult<ProductModel>> Post([FromBody] ProductModel product)
         {
-            return Ok(new ProductModel( 
-                await _productService.CreateProductAsync(product.ToDomain()
-                )));
+
+           var result=  await _productService.CreateProductAsync(product.ToDomain());
+           return result.Match(x =>
+               {
+
+               }, exception =>
+               {
+
+               }
+               );
         }
 
      
