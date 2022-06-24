@@ -2,8 +2,8 @@
 
 namespace Poc.ExceptionsHandling.Host.Validations
 {
-    public interface IProductValidator
+    public interface IProductCategoryValidator
     {
-        Task Validate(Product product);
+        Task<bool> Validate(Product product);
     }
 }

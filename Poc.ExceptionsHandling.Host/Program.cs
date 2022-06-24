@@ -6,7 +6,7 @@ using Poc.ExceptionsHandling.Host.Validations;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<IProductValidator, ProductValidatorWithException>();
+builder.Services.AddScoped<IProductCategoryValidator, ProductCategoryValidator>();
 builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService,ProductService>();
 
