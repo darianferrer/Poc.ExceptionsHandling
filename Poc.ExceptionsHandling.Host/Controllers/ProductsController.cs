@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Poc.ExceptionsHandling.Host.Domain;
 using Poc.ExceptionsHandling.Host.Models;
 using Poc.ExceptionsHandling.Host.Services;
 
@@ -41,10 +42,13 @@ namespace Poc.ExceptionsHandling.Host.Controllers
            var result=  await _productService.CreateProductAsync(product.ToDomain());
            return result.Match(x =>
                {
-
+                   return new Ok(product);
                }, exception =>
                {
-
+                   if (exception is ProductValidationException productValidationException)
+                   {
+                       return BadRequest(productValidationException);
+                   }
                }
                );
         }
