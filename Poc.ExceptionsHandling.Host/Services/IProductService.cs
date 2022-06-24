@@ -1,11 +1,12 @@
-﻿using Poc.ExceptionsHandling.Host.Domain;
+﻿using LanguageExt.Common;
+using Poc.ExceptionsHandling.Host.Domain;
 
 namespace Poc.ExceptionsHandling.Host.Services
 {
     public interface IProductService
     {
-        Task<Product> CreateProductAsync(Product product);
+        Task<Result<Product>> CreateProductAsync(Product product);
 
-        Task<IEnumerable<Product>> GetProductsAsync();
+        Task<Result<IEnumerable<Product>>> GetProductsAsync();
     }
 }

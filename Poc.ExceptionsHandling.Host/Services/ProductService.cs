@@ -1,4 +1,5 @@
-﻿using Poc.ExceptionsHandling.Host.Domain;
+﻿using LanguageExt.Common;
+using Poc.ExceptionsHandling.Host.Domain;
 using Poc.ExceptionsHandling.Host.Repositories;
 using Poc.ExceptionsHandling.Host.Validations;
 
@@ -15,14 +16,18 @@ namespace Poc.ExceptionsHandling.Host.Services
             _repository = repository;
         }
 
-        public async Task<Product> CreateProductAsync(Product product)
+        public async Task<Result<Product> > CreateProductAsync(Product product)
         {
-            await _productValidator.Validate(product);
+            var productValidationResult =  await _productValidator.ValidateAsync(product);
+            if (productValidationResult.)
+            {
+                
+            }
 
             return await _repository.CreateProductAsync(product);
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<Result<IEnumerable<Product>>> GetProductsAsync()
         {
             return await _repository.GetProducts();
         }
