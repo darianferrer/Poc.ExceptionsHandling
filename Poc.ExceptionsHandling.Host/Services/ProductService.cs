@@ -28,9 +28,9 @@ namespace Poc.ExceptionsHandling.Host.Services
             return await _repository.CreateProductAsync(product);
         }
 
-        public async Task<Result<IEnumerable<Product>>> GetProductsAsync()
+        public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            return new Result<IEnumerable<Product>>(await _repository.GetProducts());
+            return await _repository.GetProducts();
         }
     }
 }

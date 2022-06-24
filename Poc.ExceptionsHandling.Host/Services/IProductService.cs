@@ -7,6 +7,6 @@ namespace Poc.ExceptionsHandling.Host.Services
     {
         Task<Result<Product>> CreateProductAsync(Product product);
 
-        Task<Result<IEnumerable<Product>>> GetProductsAsync();
+        Task<IEnumerable<Product>> GetProductsAsync();
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LanguageExt;
+using Microsoft.AspNetCore.Mvc;
+using LanguageExt.Common;
 using Poc.ExceptionsHandling.Host.Domain;
 using Poc.ExceptionsHandling.Host.Models;
 using Poc.ExceptionsHandling.Host.Services;
@@ -24,6 +26,7 @@ namespace Poc.ExceptionsHandling.Host.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductModel>>> Get()
         {
+
             return Ok((await _productService.GetProductsAsync()).Select(x => new ProductModel(x)));
         }
 
@@ -40,17 +43,14 @@ namespace Poc.ExceptionsHandling.Host.Controllers
         {
 
            var result=  await _productService.CreateProductAsync(product.ToDomain());
-           return result.Match(x =>
-               {
-                   return new Ok(product);
-               }, exception =>
+           return result.Match<ActionResult>(x => Ok(product), exception =>
                {
                    if (exception is ProductValidationException productValidationException)
                    {
                        return BadRequest(productValidationException);
                    }
-               }
-               );
+                   return StatusCode(StatusCodes.Status500InternalServerError);
+               });
         }
 
      
