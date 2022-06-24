@@ -19,9 +19,9 @@ namespace Poc.ExceptionsHandling.Host.Services
         public async Task<Result<Product> > CreateProductAsync(Product product)
         {
             var productValidationResult =  await _productValidator.ValidateAsync(product);
-            if (productValidationResult.)
+            if (productValidationResult.IsFaulted)
             {
-                
+            
             }
 
             return await _repository.CreateProductAsync(product);
@@ -29,7 +29,7 @@ namespace Poc.ExceptionsHandling.Host.Services
 
         public async Task<Result<IEnumerable<Product>>> GetProductsAsync()
         {
-            return await _repository.GetProducts();
+            return new Result<IEnumerable<Product>>(await _repository.GetProducts());
         }
     }
 }
