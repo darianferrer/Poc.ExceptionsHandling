@@ -47,7 +47,7 @@ namespace Poc.ExceptionsHandling.Host.Controllers
                {
                    if (exception is ProductValidationException productValidationException)
                    {
-                       return BadRequest(productValidationException);
+                       return BadRequest(new { message = productValidationException.Message});
                    }
                    return StatusCode(StatusCodes.Status500InternalServerError);
                });
