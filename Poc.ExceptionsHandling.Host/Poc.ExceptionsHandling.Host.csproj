@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="LanguageExt.Core" Version="4.2.7" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="Trainline.NetStandard.Exceptions.Contracts" Version="1.3.4" />
   </ItemGroup>
 
 </Project>

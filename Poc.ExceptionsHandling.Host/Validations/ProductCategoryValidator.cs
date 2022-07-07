@@ -1,17 +1,14 @@
 ﻿using Poc.ExceptionsHandling.Host.Domain;
+using Trainline.NetStandard.Exceptions.Contracts;
 
-namespace Poc.ExceptionsHandling.Host.Validations
+namespace Poc.ExceptionsHandling.Host.Validations;
+
+public class ProductCategoryValidator : IProductCategoryValidator
 {
-    public class ProductCategoryValidator:IProductCategoryValidator
+    public async Task<TryResult> Validate(Product product)
     {
-        public async Task<bool> Validate(Product product)
-        {
-            if (!Consts.ValidCategories.Contains(product.Category))
-                return false;
-            return true;
-        }
-
-
-
+        return !Consts.ValidCategories.Contains(product.Category)
+            ? new Error(Severity.Correctable, Consts.ValidationErrors.InvalidCatoryErrorCode, Consts.ValidationErrors.InvalidCatoryErrorDescription)
+            : TryResult.Success();
     }
 }
