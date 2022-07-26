@@ -3,14 +3,15 @@ using Trainline.NetStandard.Exceptions.Contracts;
 
 namespace Poc.ExceptionsHandling.Host.Domain;
 
-public class TryResult
+public struct TryResult
 {
-    protected TryResult()
+    public TryResult()
     {
         IsSuccess = true;
+        Error = null;
     }
 
-    protected TryResult(Error error)
+    private TryResult(Error error)
     {
         IsSuccess = false;
         Error = error;
@@ -22,22 +23,32 @@ public class TryResult
     }
 
     [MemberNotNullWhen(false, nameof(Error))]
-    public virtual bool IsSuccess { get; }
+    public bool IsSuccess { get; }
 
     public Error? Error { get; }
 
     public static implicit operator TryResult(Error error) => new(error);
 }
 
-public class TryResult<TResult> : TryResult
+public struct TryResult<TResult>
 {
-    protected TryResult(TResult item) : base()
+    private TryResult(TResult item)
     {
+        IsSuccess = true;
         Item = item;
+        Error = null;
     }
-    protected TryResult(Error error) : base(error)
+    private TryResult(Error error)
     {
+        IsSuccess = false;
+        Item = default;
+        Error = error;
     }
+
+    [MemberNotNullWhen(false, nameof(Error))]
+    public bool IsSuccess { get; }
+
+    public Error? Error { get; }
 
     public TResult? Item { get; }
 
