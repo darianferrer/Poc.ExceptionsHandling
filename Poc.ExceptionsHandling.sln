@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32602.201
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poc.ExceptionsHandling.Host", "Poc.ExceptionsHandling.Host\Poc.ExceptionsHandling.Host.csproj", "{F74E02B1-0C1D-402D-87AF-40886F7295E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Poc.ExceptionsHandling.Host", "Poc.ExceptionsHandling.Host\Poc.ExceptionsHandling.Host.csproj", "{F74E02B1-0C1D-402D-87AF-40886F7295E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Poc.ExceptionsHandling.UnitTests", "Poc.ExceptionsHandling.UnitTests\Poc.ExceptionsHandling.UnitTests.csproj", "{622FA654-A253-4392-B605-079D3707AB31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F74E02B1-0C1D-402D-87AF-40886F7295E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F74E02B1-0C1D-402D-87AF-40886F7295E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F74E02B1-0C1D-402D-87AF-40886F7295E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{622FA654-A253-4392-B605-079D3707AB31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{622FA654-A253-4392-B605-079D3707AB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{622FA654-A253-4392-B605-079D3707AB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{622FA654-A253-4392-B605-079D3707AB31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
