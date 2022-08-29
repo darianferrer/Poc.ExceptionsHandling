@@ -43,7 +43,7 @@ public class ProductsController : ControllerBase
     {
         var result = await _productService.CreateAsync(product.ToDomain());
         return result.IsSuccess
-            ? CreatedAtAction(nameof(Get), new { id = product.Id }, product)
+            ? CreatedAtAction(nameof(Get), new { id = result.Item.Id }, result.Item)
             : CreateErrorResponse(result.Error);
     }
 

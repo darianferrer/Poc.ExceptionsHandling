@@ -46,6 +46,7 @@ public struct TryResult<TResult>
     }
 
     [MemberNotNullWhen(false, nameof(Error))]
+    [MemberNotNullWhen(true, nameof(Item))]
     public bool IsSuccess { get; }
 
     public Error? Error { get; }
