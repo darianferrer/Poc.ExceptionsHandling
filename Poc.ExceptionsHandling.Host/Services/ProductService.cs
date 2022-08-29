@@ -15,19 +15,26 @@ public class ProductService : IProductService
         _repository = repository;
     }
 
-    public async Task<TryResult<Product>> CreateProductAsync(Product product)
+    public async Task<TryResult<Product>> CreateAsync(Product product)
     {
         var validateResult = await _productValidator.Validate(product);
-        if (!validateResult.IsSuccess)
-        {
-            return validateResult.Error;
-        }
+        
+        if (!validateResult.IsSuccess) return validateResult.Error;
 
-        return await _repository.CreateProductAsync(product);
+        return await _repository.CreateAsync(product);
     }
 
-    public async Task<IEnumerable<Product>> GetProductsAsync()
+    public async Task<TryResult> DeleteByIdAsync(int id)
     {
-        return await _repository.GetProducts();
+        var product = await _repository.GetByIdAsync(id);
+
+        if (product is not null) await _repository.DeleteAsync(product);
+
+        return TryResult.Success();
+    }
+
+    public async Task<IEnumerable<Product>> GetAllAsync()
+    {
+        return await _repository.GetAllAsync();
     }
 }

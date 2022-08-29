@@ -1,33 +1,32 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Poc.ExceptionsHandling.Host.Domain;
 
-namespace Poc.ExceptionsHandling.Host.Middlewares
+namespace Poc.ExceptionsHandling.Host.Middlewares;
+
+public class ExceptionsMiddleware
 {
-    public class ExceptionsMiddleware
+    private readonly RequestDelegate _request;
+
+    public ExceptionsMiddleware(RequestDelegate request)
     {
-        private readonly RequestDelegate _request;
+        _request=request;
+    }
 
-        public ExceptionsMiddleware(RequestDelegate request)
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
         {
-            _request=request;
+            await _request.Invoke(context);
         }
-
-        public async Task InvokeAsync(HttpContext context)
+        catch (ProductValidationException e)
         {
-            try
-            {
-                await _request.Invoke(context);
-            }
-            catch (ProductValidationException e)
-            {
-                context.Response.StatusCode = 400;
-                await context.Response.WriteAsJsonAsync(new {message = e.Message});
-            }
-            catch (Exception e)
-            {
-                context.Response.StatusCode = 500;
-                await context.Response.WriteAsJsonAsync(new { message = e.Message });
-            }
+            context.Response.StatusCode = 400;
+            await context.Response.WriteAsJsonAsync(new {message = e.Message});
+        }
+        catch (Exception e)
+        {
+            context.Response.StatusCode = 500;
+            await context.Response.WriteAsJsonAsync(new { message = e.Message });
         }
     }
 }

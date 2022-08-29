@@ -15,7 +15,7 @@ builder.Services.AddControllers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//app.UseMiddleware<ExceptionsMiddleware>();
+app.UseMiddleware<ExceptionsMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

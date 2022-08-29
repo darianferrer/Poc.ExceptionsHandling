@@ -1,12 +1,14 @@
-﻿using System.Collections.Concurrent;
-using Poc.ExceptionsHandling.Host.Domain;
+﻿using Poc.ExceptionsHandling.Host.Domain;
 
-namespace Poc.ExceptionsHandling.Host.Repositories
+namespace Poc.ExceptionsHandling.Host.Repositories;
+
+public interface IProductRepository
 {
-    public interface IProductRepository
-    {
-        Task<Product> CreateProductAsync(Product product);
+    Task<Product> CreateAsync(Product product);
 
-        Task<IEnumerable<Product>> GetProducts();
-    }
+    Task<IEnumerable<Product>> GetAllAsync();
+
+    Task<Product?> GetByIdAsync(int id);
+
+    Task DeleteAsync(Product product);
 }

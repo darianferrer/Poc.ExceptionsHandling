@@ -27,7 +27,7 @@ public class ProductsController : ControllerBase
     public async Task<ActionResult<IEnumerable<ProductModel>>> Get()
     {
 
-        return Ok((await _productService.GetProductsAsync()).Select(x => new ProductModel(x)));
+        return Ok((await _productService.GetAllAsync()).Select(x => new ProductModel(x)));
     }
 
     // GET api/<Products>/5
@@ -41,7 +41,7 @@ public class ProductsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<ProductModel>> Post([FromBody] ProductModel product)
     {
-        var result = await _productService.CreateProductAsync(product.ToDomain());
+        var result = await _productService.CreateAsync(product.ToDomain());
         return result.IsSuccess
             ? CreatedAtAction(nameof(Get), new { id = product.Id }, product)
             : CreateErrorResponse(result.Error);
